@@ -1,5 +1,6 @@
+import time
+
 from locators.home_page_locators import HomePageLocators
-from pages.page_base import PageBase
 from utils.config import CART_PAGE_URL
 
 class HomePage:
@@ -18,3 +19,12 @@ class HomePage:
     def validate_product_added_to_cart(self):
         self.PageBase.validate_url(CART_PAGE_URL)
 
+    def click_sidebar_about_link(self):
+        self.page.click(HomePageLocators.SIDEBAR_EXPAND_BUTTON)
+        self.page.click(HomePageLocators.SIDEBAR_ABOUT_LINK)
+
+    def select_product_by_name(self,product):
+        products = self.page.locator(HomePageLocators.PRODUCT_NAME)
+        product_name = products.filter(has_text=product)
+        product_name.first.hover()
+        product_name.first.click()
