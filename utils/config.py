@@ -1,4 +1,6 @@
-BASE_URL = "https://www.saucedemo.com/"
+UI_TEST_BASE_URL = "https://www.saucedemo.com/"
+# E2E_TEST_LOGIN_BASE_URL = "https://rahulshettyacademy.com/client"
+E2E_TEST_BASE_URL = "https://rahulshettyacademy.com"
 HOME_PAGE_URL = "https://www.saucedemo.com/inventory.html"
 CART_PAGE_URL = "https://www.saucedemo.com/cart.html"
 ABOUT_PAGE_URL = "https://saucelabs.com/"

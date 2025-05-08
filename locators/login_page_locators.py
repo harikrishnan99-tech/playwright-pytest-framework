@@ -6,3 +6,4 @@ class LoginLocators:
     PASSWORD_INPUT = "input[name='password']"
     LOGIN_BUTTON = "input[type='submit']"
     TITLE_TEXT = f"text={text_values.get('homepagetitle', '')}"
+
