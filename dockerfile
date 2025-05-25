@@ -45,5 +45,5 @@ RUN pip install playwright && playwright install --with-deps
 # Copy all files from project into image
 COPY . .
 
-# Default command to run pytest with markers (customize as needed)
+# Default command to run pytest with markers
 CMD ["pytest", "-m", "health_check", "--headed", "--maxfail=1", "--disable-warnings", "-v"]

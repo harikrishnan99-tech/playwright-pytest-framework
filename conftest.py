@@ -8,7 +8,7 @@ from utils.config import UI_TEST_BASE_URL, E2E_TEST_BASE_URL
 @pytest.fixture(scope="function")
 def browser():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
         yield page

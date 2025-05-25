@@ -1,4 +1,4 @@
 env,username,password,marker
 qa,standard_user,secret_sauce,001
 qa,visual_user,secret_sauce,002
-
+qa,test66@email.com,Test@1234,003
