@@ -22,4 +22,4 @@ RUN pip install playwright && playwright install --with-deps
 COPY . .
 
 # Default command to run pytest with markers
-CMD ["pytest", "-m", "health_check", "--headed", "--maxfail=1", "--disable-warnings", "-v"]
+#CMD ["pytest", "-m", "health_check", "--headed", "--maxfail=1", "--disable-warnings", "-v"]
