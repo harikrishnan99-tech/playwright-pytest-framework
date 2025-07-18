@@ -1,6 +1,8 @@
 pipeline {
-    agent {
-        label 'docker-enabled-agent'
+    agent any
+
+    parameters {
+        string(name: 'marker', defaultValue: 'e2e', description: 'Pytest marker to run specific tests')
     }
 
     environment {
@@ -9,40 +11,39 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 echo "[1] Building Docker image: ${IMAGE_NAME}..."
-                sh "docker build -t ${IMAGE_NAME} ."
+                sh '''
+                    docker build -t $IMAGE_NAME .
+                '''
             }
         }
 
-        stage('Run Playwright Pytest Tests') {
+        stage('Run Tests in Docker') {
             steps {
-                echo "[2] Running container and executing tests..."
-                sh """
+                echo "[2] Running container to execute E2E tests..."
+                sh '''
                     docker run --rm \
-                        --name ${CONTAINER_NAME} \
-                        -v \$(pwd)/reports:/app/reports \
-                        ${IMAGE_NAME}
-                """
+                        --name $CONTAINER_NAME \
+                        -v "$(pwd)/reports:/app/reports" \
+                        $IMAGE_NAME \
+                        pytest -m "$marker" --html=reports/report.html --self-contained-html --slowmo=50
+                '''
             }
         }
-    }
 
-    post {
-        always {
-            echo "Publishing test report (if HTML plugin is available)..."
-            publishHTML([
-                reportDir: 'reports',
-                reportFiles: 'report.html',
-                reportName: 'Playwright Pytest Report'
-            ])
+        stage('Archive Test Report') {
+            steps {
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'report.html',
+                    reportName: 'Playwright E2E Test Report'
+                ])
+            }
         }
     }
 }
