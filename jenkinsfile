@@ -1,0 +1,48 @@
+pipeline {
+    agent {
+        label 'docker-enabled-agent'
+    }
+
+    environment {
+        IMAGE_NAME = 'playwright-pytest-e2e'
+        CONTAINER_NAME = 'playwright-test-runner'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "[1] Building Docker image: ${IMAGE_NAME}..."
+                sh "docker build -t ${IMAGE_NAME} ."
+            }
+        }
+
+        stage('Run Playwright Pytest Tests') {
+            steps {
+                echo "[2] Running container and executing tests..."
+                sh """
+                    docker run --rm \
+                        --name ${CONTAINER_NAME} \
+                        -v \$(pwd)/reports:/app/reports \
+                        ${IMAGE_NAME}
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Publishing test report (if HTML plugin is available)..."
+            publishHTML([
+                reportDir: 'reports',
+                reportFiles: 'report.html',
+                reportName: 'Playwright Pytest Report'
+            ])
+        }
+    }
+}
