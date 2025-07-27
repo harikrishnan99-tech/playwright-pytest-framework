@@ -16,10 +16,7 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Install Playwright and browsers
-RUN playwright install
+RUN pip install playwright && playwright install --with-deps
 
 # Copy all files from project into image
 COPY . .
-
-# Default command to run pytest with markers
-#CMD ["pytest", "-m", "health_check", "--headed", "--maxfail=1", "--disable-warnings", "-v"]
