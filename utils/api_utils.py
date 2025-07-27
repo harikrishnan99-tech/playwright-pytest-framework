@@ -1,6 +1,8 @@
 from playwright.sync_api import Playwright
 from lib.csv_data_handler import DataHandler
-from utils.config import E2E_TEST_BASE_URL, PRODUCT_ORDER_ID
+from data.config import E2E_TEST_BASE_URL, PRODUCT_ORDER_ID
+from utils.logger import logger
+
 
 class APIUtils:
 
@@ -12,6 +14,7 @@ class APIUtils:
                                             data={"userEmail": account_data["username"], "userPassword": account_data["password"]})
         assert response.ok
         response_body = response.json()
+        logger.info(f"Response {response_body}")
         return response_body["token"]
 
     #Create order and get order id for further validation if needed
@@ -25,6 +28,7 @@ class APIUtils:
         assert response.ok
         response_body = response.json()
         order_id = response_body["orders"][0]
+        logger.info(f"Response order id {order_id}")
         return order_id
 
     # Get Product details
@@ -35,4 +39,5 @@ class APIUtils:
                                            headers={"Authorization": token})
         assert response.ok
         response_body = response.json()
+        logger.info(f"Response {response_body}")
         print(response_body)

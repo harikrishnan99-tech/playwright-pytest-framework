@@ -1,4 +1,4 @@
-from utils.csv_reader import read_text_values
+from lib.csv_reader import read_text_values
 
 text_values = read_text_values("wordings_data.csv")
 class LoginLocators:

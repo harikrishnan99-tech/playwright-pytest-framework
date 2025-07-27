@@ -1,4 +1,4 @@
-from utils.csv_reader import read_csv_data
+from lib.csv_reader import read_csv_data
 
 
 class DataHandler:

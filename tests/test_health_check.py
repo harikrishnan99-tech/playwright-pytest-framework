@@ -4,8 +4,9 @@ from pages.page_base import PageBase
 from pages.home_page import HomePage
 from pages.cart_page import CartPage
 from pages.about_page import AboutPage
-from utils.config import HOME_PAGE_URL,ABOUT_PAGE_URL
+from data.config import HOME_PAGE_URL,ABOUT_PAGE_URL
 from lib.csv_data_handler import DataHandler
+from utils.logger import logger
 
 class TestHealthCheck:
 
