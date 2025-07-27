@@ -16,7 +16,7 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Install Playwright and browsers
-#RUN pip install playwright && playwright install --with-deps
+RUN pip install playwright && playwright install --with-deps
 
 # Copy all files from project into image
 COPY . .
