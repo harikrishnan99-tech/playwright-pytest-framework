@@ -13,7 +13,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Install Playwright and browsers
 RUN pip install playwright && playwright install --with-deps
