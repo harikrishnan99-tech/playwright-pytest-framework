@@ -1,5 +1,5 @@
 # Use the official Playwright image with Python and all dependencies
-FROM mcr.microsoft.com/playwright/python:v1.51.0-focal
+FROM mcr.microsoft.com/playwright/python:latest
 
 WORKDIR /app
 
