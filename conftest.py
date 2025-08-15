@@ -20,7 +20,7 @@ def browser():
 def launch(request,browser):
     page_base = PageBase(browser)
     logger.info("Starting test execution")
-    if request.node.get_closest_marker("health_check"):
+    if request.node.get_closest_marker("ui_health_check"):
         page_base.navigate(UI_TEST_BASE_URL)
     else:
         page_base.navigate(E2E_TEST_BASE_URL + "/client")

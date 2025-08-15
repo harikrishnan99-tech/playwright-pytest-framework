@@ -1,0 +1,43 @@
+{
+  "ecom_login": {
+    "email": "test66@email.com",
+    "password": "Test@1234"
+  },
+
+  "order": {
+    "country": "India",
+    "productid": "67a8df56c0d3e6622a297ccd"
+  },
+
+  "new_user": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "age": 30,
+    "gender": "male",
+    "phone": "1234567890",
+    "username": "johndoe",
+    "password": "userPassword321"
+  },
+
+  "login": {
+    "username": "emilys",
+    "password": "emilyspass"
+  },
+
+  "user_info": {
+    "lastName": "smith",
+    "height": 177,
+    "bank": {
+        "cardExpire": "01/01/1999"
+    }
+  },
+
+  "search_keywords": {
+    "q": "emilys"
+  },
+
+  "filter_keywords": {
+    "key": "hair.color",
+    "value": "Black"
+  }
+}

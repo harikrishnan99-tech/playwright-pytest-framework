@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'marker', defaultValue: 'e2e', description: 'Pytest marker to run specific tests')
+        string(name: 'marker', defaultValue: 'e2e_health_check', description: 'Pytest marker to run specific tests')
     }
 
     environment {

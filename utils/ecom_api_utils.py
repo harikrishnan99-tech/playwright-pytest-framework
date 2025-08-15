@@ -1,29 +1,26 @@
 from playwright.sync_api import Playwright
-from lib.csv_data_handler import DataHandler
+from utils.payload import ecom_login_payload, create_order_payload
 from data.config import E2E_TEST_BASE_URL, PRODUCT_ORDER_ID
 from utils.logger import logger
 
-
-class APIUtils:
+class EcomAPIUtils:
 
     #Get auth token after user log-in
     def get_token(self,playwright:Playwright):
-        account_data = DataHandler.get_data("account_data", "003")
         api_request_context = playwright.request.new_context(base_url=E2E_TEST_BASE_URL)
         response = api_request_context.post("/api/ecom/auth/login",
-                                            data={"userEmail": account_data["username"], "userPassword": account_data["password"]})
+                                            data= ecom_login_payload())
         assert response.ok
         response_body = response.json()
         logger.info(f"Response {response_body}")
         return response_body["token"]
 
     #Create order and get order id for further validation if needed
-    def create_order(self,playwright:Playwright,country = 'India', productId = PRODUCT_ORDER_ID):
+    def create_order(self,playwright:Playwright):
         token = self.get_token(playwright)
-        order_payload = {"orders": [{"country": country, "productOrderedId": productId}]}
         api_request_context = playwright.request.new_context(base_url=E2E_TEST_BASE_URL)
         response = api_request_context.post("/api/ecom/order/create-order",
-                                            data=order_payload,
+                                            data=create_order_payload(),
                                             headers={"Authorization": token})
         assert response.ok
         response_body = response.json()
@@ -32,12 +29,11 @@ class APIUtils:
         return order_id
 
     # Get Product details
-    def get_product(self,playwright:Playwright,productId = PRODUCT_ORDER_ID):
+    def get_product(self,playwright:Playwright):
         token = self.get_token(playwright)
         api_request_context = playwright.request.new_context(base_url=E2E_TEST_BASE_URL)
-        response = api_request_context.get(f"/api/ecom/product/get-product-detail/{productId}",
+        response = api_request_context.get(f"/api/ecom/product/get-product-detail/{PRODUCT_ORDER_ID}",
                                            headers={"Authorization": token})
         assert response.ok
         response_body = response.json()
         logger.info(f"Response {response_body}")
-        print(response_body)
